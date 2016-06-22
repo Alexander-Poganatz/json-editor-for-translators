@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="JSON_Editor_for_Translators.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:JSON_Editor_for_Translators"
+    xmlns:itemSpace="using:JSON_Editor_for_Translators.JEFT"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Width="512" Background="AliceBlue" x:Name="TitleGrid" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition x:Name="SecondWidth"></ColumnDefinition>
+                <ColumnDefinition x:Name="ThirdWidth"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Key"></TextBlock>
+            <TextBlock Grid.Column="1" Text="Value"></TextBlock>
+            <TextBlock Grid.Column="2" Text="New Value"></TextBlock>
+        </Grid>
+        
+        <ListView x:Name="MainListView" ItemsSource="{x:Bind viewModel.TextList, Mode=OneWay}" HorizontalAlignment="Center"
+                  VerticalAlignment="Center" Padding="0, 30, 0, 100">
+            <ListView.Transitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition />
+                </TransitionCollection>
+            </ListView.Transitions>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="itemSpace:TextModel">
+
+                    <local:ListUserController HorizontalAlignment="Stretch"/>
+                    
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<Button VerticalAlignment="Bottom" Click="AddButton">Add Row</Button>
+        <Button VerticalAlignment="Bottom" Click="DeleteButton">Delete Row</Button>
+        <Button VerticalAlignment="Bottom" Click="LoadFile">Load File</Button>
+        <Button VerticalAlignment="Bottom" Click="SaveFile">Save</Button>
+        <Button VerticalAlignment="Bottom" Click="SaveFileAs">Save As</Button>
+        <Button VerticalAlignment="Bottom" Click="ExportFile">Export</Button>
+        -->
+        <TextBlock Name="Messages" VerticalAlignment="Bottom" Text="Messages" Margin="0,0,0,60"></TextBlock>
+        <CommandBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Add" Label="Add Row" Click="AddButton"></AppBarButton>
+            <AppBarButton Icon="Remove" Label="Remove Selected" Click="DeleteButton"></AppBarButton>
+            <AppBarButton Icon ="OpenFile" Label="Open File" Click="LoadFile"></AppBarButton>
+            <AppBarButton Icon="Save" Label="Save" Click="SaveFile"></AppBarButton>
+            <AppBarButton Icon="SaveLocal" Label="Save As" Click="SaveFileAs"></AppBarButton>
+            <AppBarButton Icon="Up" Label="Export" Click="ExportFile">Export</AppBarButton>
+        </CommandBar>
+
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ListStyleStates">
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitleGrid.Width" Value="1000" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitleGrid.Width" Value="680" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="512"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="340"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ValueBlock.(Grid.Column)" Value="0" />
+                        <Setter Target="ValueBlock.(Grid.Row)" Value="1" />
+
+                        <Setter Target="NewValueBlock.(Grid.Column)" Value="0" />
+                        <Setter Target="NewValueBlock.(Grid.Row)" Value="2" />
+
+                        <Setter Target="SecondWidth.Width" Value="0" />
+                        <Setter Target="ThirdWidth.Width" Value="0" />
+                        <Setter Target="TitleGrid.Width" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
